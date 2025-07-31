@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=Euphoria+Script&display=swap");
+html, body {
+  min-height: 100%;
+  margin: 0;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  background: radial-gradient(circle at 50% 300px, #3a0c56, #000d25 100%), #560c22;
+  background-attachment: fixed;
+  margin: 0;
+}
+
+#card-toggle {
+  position: absolute;
+  left: 50%;
+  z-index: 1;
+}
+
+.card {
+  display: block;
+  position: relative;
+  z-index: 2;
+  perspective: 2000px;
+  margin: 50px auto;
+  width: 90%;
+  max-width: 500px;
+  height: 333px;
+}
+
+.card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ab79b8;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+  transform-origin: 0 0;
+}
+
+.front-flap {
+  transform: rotateX(21deg);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+.front-flap.outside {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  z-index: 5;
+}
+.front-flap.inside {
+  z-index: 4;
+  background: #F2F2F2;
+}
+
+.back-flap.inside {
+  z-index: 2;
+  transform: rotateX(-4deg);
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .front-flap {
+  transform: rotateX(24deg);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+#card-toggle:checked + .card .front-flap {
+  transform: rotateX(165deg);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08), 5px 5px 5px rgba(0, 0, 0, 0.08), -5px 5px 5px rgba(0, 0, 0, 0.08);
+}
+#card-toggle:checked + .card .back-flap {
+  transform: rotateX(-1deg);
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.card-face {
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.card-face .card-face-content {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  font-family: "Euphoria Script", cursive;
+  text-align: center;
+}
+.card-face.front-flap .card-face-content {
+  color: #fff;
+  background: repeating-linear-gradient(36deg, transparent, transparent 50px, 0, rgba(255, 255, 255, 0.05) 90px), #551313;
+  text-shadow: 0 2px 5px #000;
+}
+.card-face.front-flap.inside {
+  background: linear-gradient(to bottom, #EEE, #FAFAFA 25%);
+}
+.card-face.back-flap .card-face-content .card-text {
+  transform: skewY(-8deg);
+}
+
+.photo {
+  position: absolute;
+  height: 166px;
+  width: 250px;
+  top: 50px;
+  left: 50%;
+  margin-left: -125px;
+  z-index: 3;
+  pointer-events: none;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.25);
+  border: 4px solid #fff;
+  border-radius: 1px;
+  box-sizing: border-box;
+  transition: all 0.5s 0.06s ease-out;
+  transform: translate(-50px, 0px) rotate(-90deg);
+}
+.photo:nth-of-type(3n) {
+  transform: translate(50px, 0px) rotate(90deg);
+}
+@media (max-width: 350px) {
+  .photo:nth-of-type(1n) {
+    width: 200px;
+    margin-left: -100px;
+    transform: translate(0px, 0px) rotate(-90deg);
+  }
+}
+.photo > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.photo:last-child::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 100%;
+}
+
+#card-toggle:checked + .card .photo {
+  transition: all 0.5s 0.06s ease-out;
+}
+#card-toggle:checked + .card .photo:nth-of-type(1) {
+  transition: all 0.9s 0.12s ease-out;
+}
+#card-toggle:checked + .card .photo:nth-of-type(2) {
+  transition: all 0.8s 0.1s ease-out;
+}
+#card-toggle:checked + .card .photo:nth-of-type(3) {
+  transition: all 0.7s 0.09s ease-out;
+}
+#card-toggle:checked + .card .photo:nth-of-type(4) {
+  transition: all 0.6s 0.07s ease-out;
+}
+#card-toggle:checked + .card .photo:nth-of-type(1) {
+  transform: translate(-115px, 216.45px) rotate(-2deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(2) {
+  transform: translate(121px, 256.65px) rotate(2deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(3) {
+  transform: translate(-118px, 382.45px) rotate(-1deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(4) {
+  transform: translate(122px, 415.65px) rotate(-3deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(5) {
+  transform: translate(-127px, 550.45px) rotate(-3deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(6) {
+  transform: translate(127px, 581.65px) rotate(2deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(7) {
+  transform: translate(-129px, 729.45px) rotate(-3deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(8) {
+  transform: translate(132px, 772.65px) rotate(-1deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(9) {
+  transform: translate(-120px, 906.45px) rotate(1deg);
+}
+#card-toggle:checked + .card .photo:nth-of-type(10) {
+  transform: translate(133px, 942.65px) rotate(-1deg);
+}
+@media (max-width: 572px) {
+  #card-toggle:checked + .card .photo:nth-of-type(1) {
+    transform: translate(2px, 216.45px) rotate(3deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(2) {
+    transform: translate(9px, 387.45px) rotate(-4deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(3) {
+    transform: translate(6px, 558.45px) rotate(2deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(4) {
+    transform: translate(0px, 729.45px) rotate(4deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(5) {
+    transform: translate(-2px, 900.45px) rotate(4deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(6) {
+    transform: translate(4px, 1071.45px) rotate(0deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(7) {
+    transform: translate(-4px, 1242.45px) rotate(-1deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(8) {
+    transform: translate(9px, 1413.45px) rotate(0deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(9) {
+    transform: translate(-1px, 1584.45px) rotate(0deg);
+  }
+  #card-toggle:checked + .card .photo:nth-of-type(10) {
+    transform: translate(-1px, 1755.45px) rotate(3deg);
+  }
+}/*# sourceMappingURL=styles.css.map */

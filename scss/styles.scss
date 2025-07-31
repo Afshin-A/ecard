@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Euphoria+Script&display=swap');
+
+html, body {min-height: 100%; margin: 0;}
+html {overflow-y: scroll;}
+body {
+  background: radial-gradient(circle at 50% 300px, #3a0c56, #000d25 100%), #560c22;
+  background-attachment: fixed;
+  margin: 0;
+}
+
+#card-toggle {
+  // Put the checkbox under the card, so it's still accessible.
+  position: absolute;
+  left: 50%;
+  z-index: 1;
+}
+
+$cardMaxWidth: 500px;
+$cardHeight: 333px;
+.card {
+  // Position this correctly on top of our card toggle.
+  display: block;
+  position: relative;
+  z-index: 2;
+  
+  // This is what will trigger our 3d card opening.
+  perspective: 2000px;
+  
+  // These just lay the card out on the page.
+  margin: 50px auto;
+  width: 90%;
+  max-width: $cardMaxWidth;
+  height: $cardHeight;
+}
+
+.card-face {
+  // We have three card-faces, all positioned absolutely ontop of each other:
+  // The front-flap outside cover, the front-flap inside, and the back-flap inside.
+  // We don't have a back-flap outside since we won't be turning the card completely over.
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ab79b8;
+  // Pointer so the user knows they can click.
+  cursor: pointer;
+  // And we're going to animate a few things, I use "all" here for simplicity.
+  transition: all 0.5s ease-out;
+  // This is important, this is what anchors the flipping animation
+  // to the top edge.
+  transform-origin: 0 0;
+}
+  
+// We have two front flaps, the outside (cover) and the inside.
+.front-flap {
+  // Both should rotateX in the same way.
+  transform: rotateX(21deg);
+  // Some shadow for more realism...
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+
+  &.outside {
+    // Our outside cover should hide its backface when flipped over.
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    // And it's placed on top.
+    z-index: 5;
+  }
+
+  &.inside {
+    // It's z-index is under the outside over.
+    z-index: 4;
+    // Slightly darker background so we can see a faint line from
+    // the back-flap when open.
+    background: #F2F2F2;
+  }
+}
+
+
+// We only have one back-flap.
+.back-flap.inside {
+  // This is placed on the bottom. We skipped a "3" because we're
+  // going to place some photos that will appear "inside" the card.
+  z-index: 2;
+  // A slightly backwards rotation for it so we can have some
+  // animation closer to the user when opened.
+  transform: rotateX(-4deg);
+  box-shadow: 0 0px 5px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.25);
+}
+
+// When we hover over the card, we're going to slightly animate the
+// front-flap to open slightly, and increase it's shadow a bit.
+.card:hover .front-flap {
+  transform: rotateX(24deg);
+  box-shadow: 0 10px 10px rgba(0,0,0,0.15);
+}
+
+// Finally, when we click out <label class="card"> element, it will
+// toggle the checkbox, which is our signal to open the card.
+#card-toggle:checked + .card {
+  // Font flap, both outside and inside, flip open. Because of the transform-origin
+  // and perspective on the parent, coupled with the outside's hidden backface,
+  // the front-flap will appear to flip open completely.
+  .front-flap {
+    transform: rotateX(165deg);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08), 5px 5px 5px rgba(0, 0, 0, 0.08), -5px 5px 5px rgba(0, 0, 0, 0.08);
+  }
+  // We just animate the backflap to get slightly closer to the user.
+  .back-flap {
+    // NOTE: We need to keep this value to remain negative for iOS Safari ~14.
+    // otherwise the back-flap will appear above our card contents (photos)
+    // even though it has a lower z-index.
+    transform: rotateX(-1deg);
+    box-shadow: 0 -5px 10px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.25);
+  }
+}
+
+
+// This next card-face and all inside are only about visual styling of the
+// demo. It's not necessary for the flipping animation, and can be customized
+// or re-written with new markup however you see fit. So I've separated it
+// from the above, flipping, styles.
+.card-face {
+  display: flex;
+  padding: 10px;
+  box-sizing: border-box;
+  
+  .card-face-content {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    font-family: 'Euphoria Script', cursive;
+    text-align: center;
+  }
+  
+  &.front-flap .card-face-content {
+    color: #fff;
+    background: repeating-linear-gradient(36deg, transparent, transparent 50px, 0, rgba(255,255,255,0.05) 90px), #551313;
+    text-shadow: 0 2px 5px #000;
+  }
+  
+  &.front-flap.inside {
+    // A little shadow from the crease. Remember, this is flipped when open.
+    background: linear-gradient(to bottom, #EEE, #FAFAFA 25%);
+    
+  }
+  
+  &.back-flap .card-face-content .card-text {
+    transform: skewY(-8deg);
+  }
+}
+
+
+
+// Alright, now we're going to style up some photos that fall out of the
+// card when opened! Everything below will style these, if you don't want
+// photos to fall out, then you can delete everything below and remove
+// the <figure>'s from the HTML.
+$photoWidth: 250px;
+$photoHeight: 166px;
+.photo {
+  // Photos are also absolutely positioned, roughtly in the
+  // top/center of the card.
+  position: absolute;
+  height: $photoHeight;
+  width: $photoWidth;
+  top: 50px;
+  left: 50%;
+  margin-left: $photoWidth * -.5;
+  // And are under the front-flaps, and ontop of the back-flap.
+  z-index: 3;
+  // We don't want to click them. Since they're inside our <label>
+  // It would open/close the card, even though they are going to appear
+  // well below the card itself.
+  pointer-events: none;
+  // A drop shadow and border to look a little more realistic.
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.25);
+  border: 4px solid #fff;
+  border-radius: 1px;
+  box-sizing: border-box;
+  // Animate the photos. This is a base transition, we adjust some
+  // of the first few to spend longer when animating out.
+  transition: all .5s .06s ease-out;
+  
+  // Start position in the card, so we can rotate out.
+  transform: translate(-50px, 0px) rotate(-90deg);
+  // And a different one for every 3n, for variety.
+  &:nth-of-type(3n) {
+    transform: translate(50px, 0px) rotate(90deg);
+  }
+  
+  // If we're on a narrow screen, then we make the photos smaller.
+  @media (max-width: 350px) {
+    &:nth-of-type(1n) {
+      width: 200px;
+      margin-left: -100px;
+      transform: translate(0px, 0px) rotate(-90deg);
+    }
+  }
+  
+  // The nested image should fit the view and the loaaded
+  // image should cover the space.
+  > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  // All this does is provide a little space uner the last image
+  // so our browser will scroll a bit past the photos.
+  &:last-child::after {
+    content:'';
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 100%;
+  }
+}
+
+
+#card-toggle:checked + .card .photo {
+  transition: all .5s .06s ease-out;
+  // When we're animating out, the top couple of photos
+  // can take a little longer with duration and delay
+  // so it feels a bit more like they're falling out.
+  &:nth-of-type(1) {transition: all .9s .12s ease-out;}
+  &:nth-of-type(2) {transition: all .8s .10s ease-out;}
+  &:nth-of-type(3) {transition: all .7s .09s ease-out;}
+  &:nth-of-type(4) {transition: all .6s .07s ease-out;}
+  
+  // Now, I make use of SASS here to loop over and generate the specific
+  // styles for the photos resulting position. There's a bit of randomness
+  // as well, but, remember, it's all just static CSS in the end, and these
+  // could be manually written, like:
+  //
+  //   &:nth-of-type(1) {transform: translate(-145px, 250px) rotate(3deg);}
+  //   &:nth-of-type(2) {transform: translate(145px, 300px) rotate(-1deg);}
+  //   ...etc.
+  //
+  
+  // Set up some initial vars. We're going to loop and generate a series of
+  // translate and rotate so the photos stagger from left to right, down
+  // under the card.
+  // We can do as many photos as we want, I have $numOfPhotos as 10 here.
+  $numOfPhotos: 10;
+  // Our $startY is the starting y position of the first photo.  It looks
+  // best if it somewhat overlaps the card a bit.
+  $startY: $cardHeight * .65;
+  // Even cards a little lower, but otherwise next to their odd counterpart.
+  // And odds, jump down. These two numbers should equals just a bit over
+  // the toal $photoHeight.
+  $addEven: $photoHeight * .2;
+  $addOdd: $photoHeight * .8 + 5px;
+  // And we're going to set our $currentY with each iteration, starting with
+  // the currentY - oddY (since we're starting at 1).
+  $currentY: $startY - $addOdd;
+  $baseX: $photoWidth * .5;
+  // Now we loop...
+  @for $i from 1 through $numOfPhotos {
+    // And set an x with the baseX and some jitter between -10px to 10px.
+    $x: $baseX + (random(21) - 11);
+    // Add our even number when even, and odd when odd.
+    @if $i % 2 == 0 {
+      $currentY: $currentY + $addEven;
+    } @else {
+      $currentY: $currentY + $addOdd;
+      // And flip to the left when we're odd for two columns
+      $x: $x * -1; 
+    }
+    // And we add some jitter between -10px to 10px to our y as well
+    $y: $currentY + (random(21) - 11);
+    &:nth-of-type(#{$i}) {transform: translate($x, $y) rotate(random(11) - 6deg);}
+    // And the result should bne something that looks like this:
+    //   &:nth-of-type(1) {transform: translate(-142px, 248px) rotate(3deg);}
+    //   &:nth-of-type(2) {transform: translate(138px, 302px) rotate(-1deg);}
+    //   ...etc.
+  }
+  
+  // When we're two narrow for two columns, we loop again but just have one column.
+  @media (max-width: 572px) {
+    $addSingle: $photoHeight + 5px;
+    $currentY: $startY - $addSingle;
+    @for $i from 1 through $numOfPhotos {
+      $currentY: $currentY + $addSingle;
+      $x: random(21) - 11px;
+      $y: $currentY + (random(21) - 11);
+      &:nth-of-type(#{$i}) {transform: translate($x, $currentY) rotate(random(11) - 6deg);}
+    }
+  }
+  
+}
