@@ -5,11 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>E-Card</title>
+  <title>To My Sepideh</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/script.js"></script>
 </head>
 
 <body>
+  <div id="password-overlay">
+    <div id="password-container">
+      <label for="password">Enter Password:</label>
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="loadPhotos()">Unlock</button>
+    </div>
+    <div id="loading-spinner" style="display: none;">Loading...</div>
+  </div>
+
   <audio id="background-music" src="media/music/hanooz.mp3" loop></audio>
   <input type="checkbox" id="card-toggle" aria-label="Open the card">
 
@@ -24,24 +34,24 @@
     </div>
     <div class="card-face back-flap inside">
       <div class="card-face-content">
-        <span class="card-text">Happy national girlfriend's day. I love you baby 💜</span>
+        <span class="card-text">Happy national girlfriend's day. I love you baby. Love, your Afshin</span>
       </div>
     </div>
 
     <!-- Photos that fall out... -->
-    <figure class="photo"><img src="https://placem.at/places?h=332&w=500&txt=0&random=1&0" /></figure>
-    <figure class="photo"><img src="https://placem.at/things?h=332&w=500&txt=0&random=1&0" /></figure>
-    <figure class="photo"><img src="https://placem.at/people?h=332&w=500&txt=0&random=1&0" /></figure>
-    <figure class="photo"><img src="https://placem.at/places?h=332&w=500&txt=0&random=1&1" /></figure>
-    <figure class="photo"><img src="https://placem.at/things?h=332&w=500&txt=0&random=1&1" /></figure>
-    <figure class="photo"><img src="https://placem.at/people?h=332&w=500&txt=0&random=1&1" /></figure>
-    <figure class="photo"><img src="https://placem.at/places?h=332&w=500&txt=0&random=1&2" /></figure>
-    <figure class="photo"><img src="https://placem.at/things?h=332&w=500&txt=0&random=1&2" /></figure>
-    <figure class="photo"><img src="https://placem.at/people?h=332&w=500&txt=0&random=1&2" /></figure>
-    <figure class="photo"><img src="https://placem.at/places?h=332&w=500&txt=0&random=1&3" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
+    <figure class="photo"><img src="" /></figure>
   </label>
 
-  <!-- <script>
+  <script>
     const checkbox = document.getElementById('card-toggle');
     const audio = document.getElementById('background-music');
 
@@ -50,9 +60,9 @@
         audio.play().catch(error => {
           console.error('Audio playback failed:', error);
         });
-      }   
+      }
     });
-  </script> -->
+  </script>
 
 
 

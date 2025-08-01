@@ -38,7 +38,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #ab79b8;
+  background: #5d1b1b;
   cursor: pointer;
   transition: all 0.5s ease-out;
   transform-origin: 0 0;
@@ -161,64 +161,119 @@ body {
   transition: all 0.6s 0.07s ease-out;
 }
 #card-toggle:checked + .card .photo:nth-of-type(1) {
-  transform: translate(-115px, 216.45px) rotate(-2deg);
+  transform: translate(-134px, 216.45px) rotate(1deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(2) {
-  transform: translate(121px, 256.65px) rotate(2deg);
+  transform: translate(123px, 247.65px) rotate(0deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(3) {
-  transform: translate(-118px, 382.45px) rotate(-1deg);
+  transform: translate(-123px, 392.45px) rotate(-3deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(4) {
-  transform: translate(122px, 415.65px) rotate(-3deg);
+  transform: translate(133px, 427.65px) rotate(-3deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(5) {
-  transform: translate(-127px, 550.45px) rotate(-3deg);
+  transform: translate(-135px, 557.45px) rotate(0deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(6) {
-  transform: translate(127px, 581.65px) rotate(2deg);
+  transform: translate(135px, 592.65px) rotate(0deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(7) {
-  transform: translate(-129px, 729.45px) rotate(-3deg);
+  transform: translate(-135px, 725.45px) rotate(4deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(8) {
-  transform: translate(132px, 772.65px) rotate(-1deg);
+  transform: translate(134px, 759.65px) rotate(-2deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(9) {
-  transform: translate(-120px, 906.45px) rotate(1deg);
+  transform: translate(-133px, 907.45px) rotate(0deg);
 }
 #card-toggle:checked + .card .photo:nth-of-type(10) {
-  transform: translate(133px, 942.65px) rotate(-1deg);
+  transform: translate(120px, 939.65px) rotate(2deg);
 }
 @media (max-width: 572px) {
   #card-toggle:checked + .card .photo:nth-of-type(1) {
-    transform: translate(2px, 216.45px) rotate(3deg);
+    transform: translate(-6px, 216.45px) rotate(-5deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(2) {
-    transform: translate(9px, 387.45px) rotate(-4deg);
+    transform: translate(8px, 387.45px) rotate(-5deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(3) {
-    transform: translate(6px, 558.45px) rotate(2deg);
+    transform: translate(10px, 558.45px) rotate(-5deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(4) {
-    transform: translate(0px, 729.45px) rotate(4deg);
+    transform: translate(2px, 729.45px) rotate(-5deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(5) {
-    transform: translate(-2px, 900.45px) rotate(4deg);
+    transform: translate(3px, 900.45px) rotate(1deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(6) {
-    transform: translate(4px, 1071.45px) rotate(0deg);
+    transform: translate(-8px, 1071.45px) rotate(2deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(7) {
-    transform: translate(-4px, 1242.45px) rotate(-1deg);
+    transform: translate(-6px, 1242.45px) rotate(2deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(8) {
-    transform: translate(9px, 1413.45px) rotate(0deg);
+    transform: translate(-10px, 1413.45px) rotate(3deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(9) {
-    transform: translate(-1px, 1584.45px) rotate(0deg);
+    transform: translate(10px, 1584.45px) rotate(-2deg);
   }
   #card-toggle:checked + .card .photo:nth-of-type(10) {
-    transform: translate(-1px, 1755.45px) rotate(3deg);
+    transform: translate(-8px, 1755.45px) rotate(2deg);
   }
 }/*# sourceMappingURL=styles.css.map */
+
+
+
+#password-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Centered password container */
+#password-container {
+  text-align: center;
+  color: white;
+}
+
+#password-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+#password-container input {
+  padding: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+#password-container button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#password-container button:hover {
+  background: #0056b3;
+}
+
+/* Loading spinner */
+#loading-spinner {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}

@@ -1,0 +1,11 @@
+media/pictures/raw/*
+
+*.jpg
+*.jpeg
+*.png
+
+.env
+
+*.json
+
+node_modules
