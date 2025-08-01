@@ -277,3 +277,28 @@ body {
   font-size: 18px;
   text-align: center;
 }
+
+
+.heart-emoji {
+  position: fixed;
+  bottom: 0;
+  font-size: 50x;
+  animation: floatUp 1.5s cubic-bezier(0.33, 0, 0.67, 1) forwards;
+  pointer-events: none;
+  z-index: 2000;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50vh);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}

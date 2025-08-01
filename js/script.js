@@ -73,7 +73,8 @@ async function validatePassword(password) {
       img.src = dataUrl;
     });
   } catch (error) {
-    throw new Error('Password validation failed: ' + error.message);
+    // throw new Error('Password validation failed: ' + error.message);
+    throw new Error();
   }
 }
 
@@ -133,6 +134,7 @@ async function loadPhotos() {
         photoImages[i].alt = `Failed to load photo: ${error.message}`;
       }
     }
+    window.addEventListener('scroll', scrollHandler);
   } catch (error) {
     console.error('Validation error:', error);
     // Hide spinner, show password input with error
@@ -144,3 +146,45 @@ async function loadPhotos() {
     passwordOverlay.querySelector('#password-container').appendChild(errorMsg);
   }
 }
+
+// Function to spawn and animate heart emojis
+function spawnEmojis() {
+  const emojiCount = 100; // Number of heart emojis
+  const emoji = '💜'; // Heart emoji
+  const container = document.body;
+  const spawnInterval = 50; // 50ms delay between each emoji (100 * 50ms = 5s)
+
+  let spawned = 0;
+  const interval = setInterval(() => {
+    if (spawned >= emojiCount) {
+      clearInterval(interval);
+      return;
+    }
+
+    const heart = document.createElement('span');
+    heart.className = 'heart-emoji';
+    heart.textContent = emoji;
+    heart.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+    container.appendChild(heart);
+
+    // Remove emoji after animation (1.5s)
+    setTimeout(() => {
+      heart.remove();
+    }, 1500);
+
+    spawned++;
+  }, spawnInterval);
+
+  // Disable further triggers
+  window.removeEventListener('scroll', scrollHandler);
+}
+
+// Scroll event handler to detect bottom of page
+function scrollHandler() {
+  const scrollPosition = window.scrollY + window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  if (scrollPosition >= documentHeight - 10) {
+    spawnEmojis();
+  }
+}
+
